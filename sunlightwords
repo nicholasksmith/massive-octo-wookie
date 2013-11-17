@@ -1,0 +1,26 @@
+# First, we'll want to load our file of Senate speech words
+# These were found at the Sunlight Foundation http://sunlightfoundation.com
+ 
+words = read.csv("http://compute-cuj.org/data2/day3/words.csv",as.is=TRUE)
+ 
+# For starters, lets sum the worr count so we can see who talks the most
+num<-words[,4:15]
+words$sum<-apply(num, 1, sum)
+ 
+# We want to plot histograms of the different words against each other
+# Let's start with the "sum" one histogram
+ 
+hist(words$sum,breaks=50,xlim=c(0,1200))
+ 
+# Let's add a line to that graph
+x<-words$sum
+h<-hist(x)
+xfit<-seq(min(x),max(x),length=40) 
+yfit<-dnorm(xfit,mean=mean(x),sd=sd(x)) 
+yfit <- yfit*diff(h$mids[1:2])*length(x) 
+lines(xfit, yfit, col="blue", lwd=2)
+ 
+# We've got the blue line, but it's not perfect. Let's try a different one
+d <- density(x) # returns the density data 
+plot(d,col="blue", lwd=2)
+polygon(d, col="red", border="blue")
