@@ -24,3 +24,13 @@ lines(xfit, yfit, col="blue", lwd=2)
 d <- density(x) # returns the density data 
 plot(d,col="blue", lwd=2)
 polygon(d, col="red", border="blue")
+
+# Let's run a regression on the healthcare and spending, governemnt
+summary(words) # give some basic information on the dataset
+summary(ols <- lm(health.care ~ spending + government, data = words))
+plot(ols, las = 1)
+
+
+# find relationship between healthcare and spending
+summary(hs <- lm(health.care ~ spending, data = words))
+plot(hs, las = 1)
