@@ -107,6 +107,15 @@ total$sum<-apply(numb, 1, sum)
 top<-head(total[with(total, order(-sum, ngram)), ],n=50)
 tops<-data.frame(top$ngram,top$sum) 
 
+# So we get a lot of common words, doing a quick, entirely unscientific scan
+# we find the top 11 to be: government, health, security, budget, business,
+# energy, education, jobs, families, children, school (govenrment could be
+# an "all purpose" word, so that's why there's 11)    
+        
+# We can seperate these into their own data frame        
+top10<-tops[c(42,61,91,92,146,154,155,160,169,172,175),]        
+
+
 barplot(top10$top.sum, col=terrain.colors(10), 
 main="Top Congressional Buzzwords", 
 ylab="Number of times said", 
