@@ -108,6 +108,7 @@ top<-head(total[with(total, order(-sum, ngram)), ],n=50)
 tops<-data.frame(top$ngram,top$sum) 
 
 barplot(top10$top.sum, col=terrain.colors(10), 
-     ylab="Times said",
-    legend("topright", c("Health","Security","Budget","Business","Energy","Education","Jobs","Families","Children","School")),
-    main="Top Congressional Buzzwords") 
+main="Top Congressional Buzzwords", 
+ylab="Number of times said", 
+legend=c("Health","Security","Budget","Business","Energy","Education","Jobs","Families","Children","School"))
+
