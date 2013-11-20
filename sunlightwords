@@ -34,3 +34,27 @@ plot(ols, las = 1)
 # find relationship between healthcare and spending
 summary(hs <- lm(health.care ~ spending, data = words))
 plot(hs, las = 1)
+
+# find the top influencers on health care issue
+o = order(words$health.care, decreasing=TRUE)[1:10]
+hcppl = words[o,] 
+hcppl
+hcppl$id
+
+
+install.packages("devtools")
+library(devtools)
+install_github("govdat", "schamberlain")
+library(govdat)
+# install rjson and XML
+mcc = sll_cw_timeseries("climate change",bioguide_id = "M000303",key="fab63f0586a94bdf8bd042d1db7f8408")
+plot(mcc$day,mcc$count)
+head(mcc)
+?sll_cw_timeseries
+# the date field of mcc is a date object. Awesome!!!
+
+# Plot how often they talk about health care
+for (i in hcppl$id){
+  hcd= sll_cw_timeseries("health care",bioguide_id = i, start_date ="2013-01-01",end_date = "2013-11-01", key="fab63f0586a94bdf8bd042d1db7f8408")
+  plot(hcd$day,hcd$count)
+}
