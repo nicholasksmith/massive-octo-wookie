@@ -58,3 +58,51 @@ for (i in hcppl$id){
   hcd= sll_cw_timeseries("health care",bioguide_id = i, start_date ="2013-01-01",end_date = "2013-11-01", key="fab63f0586a94bdf8bd042d1db7f8408")
   plot(hcd$day,hcd$count)
 }
+
+# We'll have to pull the most common words
+        
+library(devtools)
+install_github("govdat","cocteau")
+library(govdat)
+words01<-sll_cw_phrases(entity_type="month",entity_value="201301",key="434825d810f6409aa6586bd150d6978a")
+words01<-words01[2:3]
+words02<-sll_cw_phrases(entity_type="month",entity_value="201302",key="434825d810f6409aa6586bd150d6978a")
+words02<-words02[2:3]
+        words03<-sll_cw_phrases(entity_type="month",entity_value="201303",key="434825d810f6409aa6586bd150d6978a")
+        words03<-words03[2:3]
+        words04<-sll_cw_phrases(entity_type="month",entity_value="201304",key="434825d810f6409aa6586bd150d6978a")
+        words04<-words04[2:3]
+        words05<-sll_cw_phrases(entity_type="month",entity_value="201305",key="434825d810f6409aa6586bd150d6978a")
+        words05<-words05[2:3]
+        words06<-sll_cw_phrases(entity_type="month",entity_value="201306",key="434825d810f6409aa6586bd150d6978a")
+        words06<-words06[2:3]
+        words07<-sll_cw_phrases(entity_type="month",entity_value="201307",key="434825d810f6409aa6586bd150d6978a")
+        words07<-words07[2:3]
+        words08<-sll_cw_phrases(entity_type="month",entity_value="201308",key="434825d810f6409aa6586bd150d6978a")
+        words08<-words08[2:3]
+        words09<-sll_cw_phrases(entity_type="month",entity_value="201309",key="434825d810f6409aa6586bd150d6978a")
+        words09<-words09[2:3]
+        words10<-sll_cw_phrases(entity_type="month",entity_value="201310",key="434825d810f6409aa6586bd150d6978a")
+        words10<-words10[2:3]
+        words11<-sll_cw_phrases(entity_type="month",entity_value="201311",key="434825d810f6409aa6586bd150d6978a")
+        words11<-words11[2:3]
+        
+# Now that we've pulled all the 2013 words, lets combine and sum
+# This was a really ugly way to combine them, so use a loop if you can
+        totala<-merge(words01,words02,by="ngram")
+        totalb<-merge(words03,words04,by="ngram")
+        totalc<-merge(words05,words06,by="ngram")
+        totald<-merge(words07,words08,by="ngram")
+        totale<-merge(words09,words10,by="ngram")
+        totalf<-merge(totala,totalb,by="ngram")
+        totalg<-merge(totalc,totald,by="ngram")
+        totalh<-merge(totale,words11,by="ngram")
+        totali<-merge(totalf,totalg,by="ngram")
+        total<-merge(totalh,totali,by="ngram")
+                  
+numb<-total[,2:11]
+total$sum<-apply(numb, 1, sum)
+        
+# And to order the top 50 words from 2013:        
+top<-head(total[with(total, order(-sum, ngram)), ],n=50)
+tops<-data.frame(top$ngram,top$sum) 
