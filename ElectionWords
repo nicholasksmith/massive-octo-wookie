@@ -20,3 +20,15 @@ transcript=rbind(transcript,newdata)
 p=p+1
 newdata = sll_cw_text(bioguide_id="B001230",key="ed33f4ec86894758b4b622f273b52240",page=p)
 }
+
+# Making a loop to pull Ron's documents
+transcript2 = data.frame()
+p=0
+newdata = sll_cw_text(bioguide_id="J000293",key="ed33f4ec86894758b4b622f273b52240",page=p)
+while(!is.null(newdata)){
+  transcript2=rbind(transcript2,newdata)
+  p=p+1
+  newdata = sll_cw_text(bioguide_id="J000293",key="ed33f4ec86894758b4b622f273b52240",page=p)
+}
+
+
