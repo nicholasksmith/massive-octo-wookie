@@ -1,0 +1,13 @@
+# Load all the packages we'll need
+install.packages("devtools")
+library(devtools)
+install_github("govdat","cocteau")
+library(govdat)
+library(XML)
+library(rjson)
+?sll_cw_phrases
+
+# Look into Wisconsin senators Tammy Baldwin and Ron Johnson
+tammy<-sll_cw_phrases(entity_type="legislator",entity_value="B001230",n=1,sort="100",key="434825d810f6409aa6586bd150d6978a")
+ron<-sll_cw_phrases(entity_type="legislator",entity_value="J000293",n=1,sort="100",key="434825d810f6409aa6586bd150d6978a")
+
