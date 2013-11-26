@@ -11,3 +11,12 @@ library(rjson)
 tammy<-sll_cw_phrases(entity_type="legislator",entity_value="B001230",n=1,sort="100",key="434825d810f6409aa6586bd150d6978a")
 ron<-sll_cw_phrases(entity_type="legislator",entity_value="J000293",n=1,sort="100",key="434825d810f6409aa6586bd150d6978a")
 
+# Making a loop to pull Tammy's documents
+transcript = data.frame()
+p=0
+newdata = sll_cw_text(bioguide_id="B001230",key="ed33f4ec86894758b4b622f273b52240",page=p)
+while(!is.null(newdata)){
+transcript=rbind(transcript,newdata)
+p=p+1
+newdata = sll_cw_text(bioguide_id="B001230",key="ed33f4ec86894758b4b622f273b52240",page=p)
+}
