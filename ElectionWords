@@ -31,4 +31,21 @@ while(!is.null(newdata)){
   newdata = sll_cw_text(bioguide_id="J000293",key="ed33f4ec86894758b4b622f273b52240",page=p)
 }
 
+# Now we have to find which words are the most common in the year leading up to the election
+
+
+sort(table(allwords))/length(allwords)
+
+worddf = data.frame(word=names(allwords),count=allwords)
+taballwords = table(allwords)
+worddf = data.frame(word=names(taballwords),count=taballwords)
+worddf = worddf(taballwords)
+worddf = data.frame(taballwords)
+words = data.frame(table(allwords))
+words$Freq = words$Freq/sum(words$Freq)
+order(words$Freq)
+words[order(words$Freq),]
+wordz=words[order(words$Freq,decreasing=TRUE),]
+wordz$ranking=1:nrow(wordz)
+View(wordz)
 
