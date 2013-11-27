@@ -5,13 +5,16 @@ install_github("govdat","cocteau")
 library(govdat)
 library(XML)
 library(rjson)
+
+# To test to see if everything loaded correctly, the help window should come up
 ?sll_cw_phrases
 
 # Look into Wisconsin senators Tammy Baldwin and Ron Johnson
-tammy<-sll_cw_phrases(entity_type="legislator",entity_value="B001230",n=1,sort="100",key="434825d810f6409aa6586bd150d6978a")
-ron<-sll_cw_phrases(entity_type="legislator",entity_value="J000293",n=1,sort="100",key="434825d810f6409aa6586bd150d6978a")
+tammy <- sll_cw_phrases(entity_type="legislator",entity_value="B001230",key="ed33f4ec86894758b4b622f273b52240")
+ron <- sll_cw_phrases(entity_type="legislator",entity_value="J000293",key="ed33f4ec86894758b4b622f273b52240")
 
-# Making a loop to pull Tammy's documents
+# This gives us all of their words since they started recording them, 
+# Making a loop to pull Tammy Baldwin's documents
 transcript = data.frame()
 p=0
 newdata = sll_cw_text(bioguide_id="B001230",key="ed33f4ec86894758b4b622f273b52240",page=p)
@@ -20,8 +23,8 @@ transcript=rbind(transcript,newdata)
 p=p+1
 newdata = sll_cw_text(bioguide_id="B001230",key="ed33f4ec86894758b4b622f273b52240",page=p)
 }
-
-# Making a loop to pull Ron's documents
+      
+# Making a loop to pull Ron Johnson's documents
 transcript2 = data.frame()
 p=0
 newdata = sll_cw_text(bioguide_id="J000293",key="ed33f4ec86894758b4b622f273b52240",page=p)
@@ -30,6 +33,25 @@ while(!is.null(newdata)){
   p=p+1
   newdata = sll_cw_text(bioguide_id="J000293",key="ed33f4ec86894758b4b622f273b52240",page=p)
 }
+
+# We'll have to select the speech section from the date ranges we want before we can 
+# work with it
+
+# To select out Tammy's speeches for the year leading up to the election:
+grep("2011",transcript$id)
+grep("2012",transcript$id)
+# These arn't concurrent like Ron's are, so we'll have to join them piece by peice
+tt1=transcript[1:3,]
+tt2=transcript[45:57,]
+tt3=transcript[563:564,]
+tt4=transcript[595:612,]
+transcripttammy=rbind(tt1,tt2,tt3,tt4)
+  
+# To select out Ron's speeches for the year leading up to the election:
+grep("2011",transcript2$id)
+grep("2012",transcript2$id)
+# We can then eyeball the rows to see which speeches happen between Nov. 6, 2011-Nov.5, 2012
+transcriptron=transcript2[26:75,]
 
 # Now we have to find which words are the most common in the year leading up to the election
 
@@ -48,4 +70,4 @@ words[order(words$Freq),]
 wordz=words[order(words$Freq,decreasing=TRUE),]
 wordz$ranking=1:nrow(wordz)
 View(wordz)
-
+                         
