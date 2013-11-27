@@ -1,4 +1,4 @@
-# Load all the packages we'll need
+\# Load all the packages we'll need
 install.packages("devtools")
 library(devtools)
 install_github("govdat","cocteau")
@@ -110,9 +110,19 @@ wordz2=words2[order(words2$Freq,decreasing=TRUE),]
 wordz2$ranking=1:nrow(wordz2)
 View(wordz2)
 
-# Now that we've got our two tables, we need to merge them
+# Now that we've got our two tables, we need to merge them, subtracting the difference
+# between the chart positions so we can see which words they don't say 
 wordz2$allwords=wordz2$allwords22
+wordmerge=merge(wordz,wordz2,by="allwords")
 wordmerge$diff=sqrt((wordmerge$ranking.x - wordmerge$ranking.y)^2)
 newmerge=wordmerge[order(wordmerge$diff,decreasing=TRUE),]
+# That's a lot of differentiation between the words, we'll reduce it to the top 1000 words
+wordza=wordz[1:1500,]
+wordz2a=wordz2[1:1500,]
+wordmerge2=merge(wordza,wordz2a,by="allwords")
+wordmerge2$diff=sqrt((wordmerge2$ranking.x - wordmerge2$ranking.y)^2)
+newmerge2=wordmerge2[order(wordmerge2$diff,decreasing=TRUE),]
+View(newmerge2)
+
 
                          
