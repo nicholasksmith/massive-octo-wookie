@@ -1,4 +1,4 @@
-\# Load all the packages we'll need
+# Load all the packages we'll need
 install.packages("devtools")
 library(devtools)
 install_github("govdat","cocteau")
