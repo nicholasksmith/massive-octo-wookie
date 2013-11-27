@@ -109,3 +109,10 @@ words2[order(words2$Freq),]
 wordz2=words2[order(words2$Freq,decreasing=TRUE),]
 wordz2$ranking=1:nrow(wordz2)
 View(wordz2)
+
+# Now that we've got our two tables, we need to merge them
+wordz2$allwords=wordz2$allwords22
+wordmerge$diff=sqrt((wordmerge$ranking.x - wordmerge$ranking.y)^2)
+newmerge=wordmerge[order(wordmerge$diff,decreasing=TRUE),]
+
+                         
