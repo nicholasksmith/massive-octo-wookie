@@ -54,6 +54,7 @@ grep("2012",transcript2$id)
 transcriptron=transcript2[26:75,]
 
 # Now we have to find which words are the most common in the year leading up to the election
+# for Tammy
 text = "Mr. Speaker, I move that the House do now adjourn."
 matches=regexpr("\\b\\w+\\b", text)
 regmatches(text,matches)
@@ -80,4 +81,34 @@ words[order(words$Freq),]
 wordz=words[order(words$Freq,decreasing=TRUE),]
 wordz$ranking=1:nrow(wordz)
 View(wordz)
+
+# Now we have to find which words are the most common in the year leading up to the election
+# for Ron
+text = "Mr. Speaker, I move that the House do now adjourn."
+matches=regexpr("\\b\\w+\\b", text)
+regmatches(text,matches)
+matches=gregexpr("\\b\\w+\\b", transcriptron$speaking)
+allwords2 = regmatches(transcriptron$speaking,matches)
+allwords2[[1]]
+allwords2[[2]]
+unlist(allwords2)
+matches=gregexpr("\\b\\w+\\b", transcriptron$speaking)
+allwords2 = tolower(unlist(regmatches(transcriptron$speaking,matches)))
+matches=gregexpr("\\b\\w+\\b", transcriptron$speaking)
+allwords2 = tolower(unlist(regmatches(transcriptron$speaking,matches)))
+sort(table(allwords2))/length(allwords2)
+
+worddf = data.frame(word=names(allwords2),count=allwords2)
+taballwords2 = table(allwords2)
+worddf = data.frame(word=names(taballwords2),count=taballwords2)
+worddf = worddf(taballwords2)
+worddf = data.frame(taballwords2)
+words = data.frame(table(allwords2))
+words$Freq = words$Freq/sum(words$Freq)
+order(words$Freq)
+words[order(words$Freq),]
+wordz=words[order(words$Freq,decreasing=TRUE),]
+wordz$ranking=1:nrow(wordz)
+View(wordz)
+
                          
