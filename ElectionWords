@@ -82,33 +82,30 @@ wordz=words[order(words$Freq,decreasing=TRUE),]
 wordz$ranking=1:nrow(wordz)
 View(wordz)
 
-# Now we have to find which words are the most common in the year leading up to the election
-# for Ron
+# Now we have to find which words2 are the most common in the year leading up to the election
 text = "Mr. Speaker, I move that the House do now adjourn."
 matches=regexpr("\\b\\w+\\b", text)
 regmatches(text,matches)
 matches=gregexpr("\\b\\w+\\b", transcriptron$speaking)
-allwords2 = regmatches(transcriptron$speaking,matches)
-allwords2[[1]]
-allwords2[[2]]
-unlist(allwords2)
+allwords22 = regmatches(transcriptron$speaking,matches)
+allwords22[[1]]
+allwords22[[2]]
+unlist(allwords22)
 matches=gregexpr("\\b\\w+\\b", transcriptron$speaking)
-allwords2 = tolower(unlist(regmatches(transcriptron$speaking,matches)))
+allwords22 = tolower(unlist(regmatches(transcriptron$speaking,matches)))
 matches=gregexpr("\\b\\w+\\b", transcriptron$speaking)
-allwords2 = tolower(unlist(regmatches(transcriptron$speaking,matches)))
-sort(table(allwords2))/length(allwords2)
+allwords22 = tolower(unlist(regmatches(transcriptron$speaking,matches)))
+sort(table(allwords22))/length(allwords22)
 
-worddf = data.frame(word=names(allwords2),count=allwords2)
-taballwords2 = table(allwords2)
-worddf = data.frame(word=names(taballwords2),count=taballwords2)
-worddf = worddf(taballwords2)
-worddf = data.frame(taballwords2)
-words = data.frame(table(allwords2))
-words$Freq = words$Freq/sum(words$Freq)
-order(words$Freq)
-words[order(words$Freq),]
-wordz=words[order(words$Freq,decreasing=TRUE),]
-wordz$ranking=1:nrow(wordz)
-View(wordz)
-
-                         
+worddf2 = data.frame(word=names(allwords22),count=allwords22)
+taballwords22 = table(allwords22)
+worddf2 = data.frame(word=names(taballwords22),count=taballwords22)
+worddf2 = worddf2(taballwords22)
+worddf2 = data.frame(taballwords22)
+words2 = data.frame(table(allwords22))
+words2$Freq = words2$Freq/sum(words2$Freq)
+order(words2$Freq)
+words2[order(words2$Freq),]
+wordz2=words2[order(words2$Freq,decreasing=TRUE),]
+wordz2$ranking=1:nrow(wordz2)
+View(wordz2)
