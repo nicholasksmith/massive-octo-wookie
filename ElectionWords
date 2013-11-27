@@ -54,8 +54,18 @@ grep("2012",transcript2$id)
 transcriptron=transcript2[26:75,]
 
 # Now we have to find which words are the most common in the year leading up to the election
-
-
+text = "Mr. Speaker, I move that the House do now adjourn."
+matches=regexpr("\\b\\w+\\b", text)
+regmatches(text,matches)
+matches=gregexpr("\\b\\w+\\b", transcripttammy$speaking)
+allwords = regmatches(transcripttammy$speaking,matches)
+allwords[[1]]
+allwords[[2]]
+unlist(allwords)
+matches=gregexpr("\\b\\w+\\b", transcripttammy$speaking)
+allwords = tolower(unlist(regmatches(transcripttammy$speaking,matches)))
+matches=gregexpr("\\b\\w+\\b", transcripttammy$speaking)
+allwords = tolower(unlist(regmatches(transcripttammy$speaking,matches)))
 sort(table(allwords))/length(allwords)
 
 worddf = data.frame(word=names(allwords),count=allwords)
